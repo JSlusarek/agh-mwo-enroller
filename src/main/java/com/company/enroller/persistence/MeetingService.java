@@ -11,16 +11,37 @@ import com.company.enroller.model.Meeting;
 @Component("meetingService")
 public class MeetingService {
 
-	DatabaseConnector connector;
+    DatabaseConnector connector;
 
-	public MeetingService() {
-		connector = DatabaseConnector.getInstance();
-	}
+    public MeetingService() {
+        connector = DatabaseConnector.getInstance();
+    }
 
-	public Collection<Meeting> getAll() {
-		String hql = "FROM Meeting";
-		Query query = connector.getSession().createQuery(hql);
-		return query.list();
-	}
+    public Collection<Meeting> getAll() {
+        String hql = "FROM Meeting";
+        Query query = connector.getSession().createQuery(hql);
+        return query.list();
+    }
 
+    public Meeting findById(Long id) {
+        return (Meeting) connector.getSession().get(Meeting.class, id);
+    }
+
+    public void add(Meeting meeting) {
+        Transaction transaction = connector.getSession().beginTransaction();
+        connector.getSession().saveOrUpdate(meeting);
+        transaction.commit();
+    }
+
+    public void update(Meeting meeting) {
+        Transaction transaction = connector.getSession().beginTransaction();
+        connector.getSession().update(meeting);
+        transaction.commit();
+    }
+
+    public void delete(Meeting meeting) {
+        Transaction transaction = connector.getSession().beginTransaction();
+        connector.getSession().delete(meeting);
+        transaction.commit();
+    }
 }
