@@ -45,7 +45,6 @@ public class MeetingRestController {
             return new ResponseEntity<>("Meeting does not exist", HttpStatus.NOT_FOUND);
         }
 
-        // Aktualizacja pól (przykładowo)
         existing.setTitle(meeting.getTitle());
         existing.setDate(meeting.getDate());
 
