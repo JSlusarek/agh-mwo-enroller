@@ -6,5 +6,6 @@ RUN mvn package -DskipTests
 FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=builder /app/target/enroller-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/enroller.db enroller.db
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
